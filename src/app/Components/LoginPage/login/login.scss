@@ -1,0 +1,47 @@
+.login_container{
+    background-color: rgb(108, 152, 223);
+    position: fixed;
+    inset: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_card{
+    background-color: aliceblue;
+    width: 50vh;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.login_card h2{
+    text-align: center;
+    text-decoration: underline;
+}
+
+.label_input{
+    padding-bottom: 15px;
+}
+
+.input{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(108, 152, 223);
+}
+
+.a_link{
+    padding-bottom: 15px;
+}
+
+.btn{
+    width: 100%;
+    background-color: rgb(108, 152, 223);
+    border: 0px;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 15px;
+    color: aliceblue;
+}
