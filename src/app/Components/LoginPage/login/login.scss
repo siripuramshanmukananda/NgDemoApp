@@ -1,8 +1,7 @@
 .login_container{
-    background-color: rgb(108, 152, 223);
+    background-color: rgb(123, 174, 225);
     position: fixed;
     inset: 0;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,6 +31,10 @@
     border: 1px solid rgb(108, 152, 223);
 }
 
+form div small{
+    color: red;
+}
+
 .a_link{
     padding-bottom: 15px;
 }
@@ -43,5 +46,6 @@
     padding: 8px;
     border-radius: 5px;
     font-size: 15px;
+    cursor: pointer;
     color: aliceblue;
 }

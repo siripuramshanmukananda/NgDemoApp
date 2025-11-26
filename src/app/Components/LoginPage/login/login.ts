@@ -15,14 +15,33 @@ export class Login {
 
   constructor(private fb: FormBuilder, private router: Router){
     this.loginForm = this.fb.group({
-      email:['', [Validators.required, Validators.email]],
-      password:['', [Validators.required, Validators.minLength(6)]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     })
   }
 
-  submit(){
-    
+  get email(){
+    return this.loginForm.get('email');
+  }
 
-    this.router.navigate([Home]);
+  get password(){
+    return this.loginForm.get('password');
+  }
+
+  obj: any;
+
+  submit(){
+    if(this.loginForm.invalid){
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
+    //console.log(this.loginForm.value);
+    this.obj = {
+      email: this.loginForm.get('email')?.value,
+      password: this.loginForm.get('password')?.value
+    }
+    console.log(this.obj);
+    this.router.navigate(['home']);
   }
 }

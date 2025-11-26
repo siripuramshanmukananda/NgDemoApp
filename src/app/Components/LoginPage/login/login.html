@@ -12,7 +12,12 @@
                     placeholder="Enter your email"
                     required="required"
                     class="input"/>
-                
+                    <small *ngIf="email?.touched && email?.errors?.['required']">
+                        Email is required.
+                    </small>
+                    <small *ngIf="email?.touched && email?.errors?.['email']">
+                        Enter a valid email.
+                    </small>
                 </div>
 
                 <div class="label_input">
@@ -24,7 +29,12 @@
                     placeholder="Enter your password"
                     required="required"
                     class="input"/>
-                    
+                    <small *ngIf="password?.touched && password?.errors?.['required']">
+                        Password is required.
+                    </small>
+                    <small *ngIf="password?.touched && password?.errors?.['minlength']">
+                        Minimum 6 characters required.
+                    </small>
                 </div>
             </form>
             <div class="a_link">
