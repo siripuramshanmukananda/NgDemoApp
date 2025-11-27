@@ -1,0 +1,55 @@
+<div>
+    <div class="verify_container">
+        <div class="verify_card">
+            <h2>Verify your Mobile Number with OTP</h2>
+            <div>
+                <h3>Verify with Mobile Number</h3>
+                <form [formGroup]="verifyForm">
+                    <div class="label_input">
+                        <label for="mobile">Mobile Number:</label>
+                        <input 
+                        type="text" 
+                        formControlName="mobileNumber"
+                        id="mobile" 
+                        placeholder="Enter your mobile number"
+                        required="required"
+                        class="input"/>
+                        <small *ngIf="mobileNumber?.touched && mobileNumber?.errors?.['required']">
+                            Mobile Number is required.
+                        </small>
+                        <small *ngIf="mobileNumber?.touched && mobileNumber?.errors?.['pattern']">
+                            Enter a valid 10 digit mobile number.
+                        </small>
+                    </div>
+                </form>
+
+                <button type="submit" class="btn" (click)="submit()">Send OTP</button>
+            </div>
+            <hr>
+            <div>
+                <h3>Verify OTP</h3>
+                <form [formGroup]="verifyForm">
+                    <div class="label_input">
+                        <label for="Otp">OTP:</label>
+                        <input 
+                        type="text" 
+                        formControlName="otp"
+                        id="Otp" 
+                        placeholder="Enter Otp"
+                        required="required"
+                        class="input"/>
+                        <small *ngIf="otp?.touched && otp?.errors?.['required']">
+                            Otp is required.
+                        </small>
+                        <small *ngIf="otp?.touched && otp?.errors?.['pattern']">
+                            Enter a valid 4 digit OTP.
+                        </small>
+                    </div>
+                </form>
+
+                <button type="submit" class="btn" (click)="submit()">Verify OTP</button>
+            </div>
+
+        </div>
+    </div>
+</div>
