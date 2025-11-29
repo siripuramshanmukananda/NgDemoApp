@@ -18,9 +18,25 @@ export class LoginService {
   //   .set('name', 'abc')
   //   return this.http.post(environment.baseUrl, data, {params});
   // }
-  private apiUrl = environment.loginBaseUrl + '/api/Login/AddLoginCredentials';
-  postLogin(data:any):Observable<any>{
-    return this.http.post(this.apiUrl, data);
+
+  private loginApiUrl = environment.baseUrl + '/api/Login/LoginCredentials';
+  postLogin(data:any): Observable<any>{
+    return this.http.post(this.loginApiUrl, data);
+  }
+
+  private SendOtpApiUrl = environment.baseUrl + '/api/OTP/SendOTP';
+  postSendOtp(data:any): Observable<any>{
+    return this.http.post(this.SendOtpApiUrl, data);
+  }
+
+  private verifyOtpApiUrl =environment.baseUrl + '/api/OTP/VerifyOTP';
+  postVerifyOtp(data:any): Observable<any>{
+    return this.http.post(this.verifyOtpApiUrl, data);
+  }  
+
+  private getMembersApiUrl = environment.baseUrl + '/api/Member/GetAllMembers';
+  getMembers(): Observable<any>{
+    return this.http.get<any>(this.getMembersApiUrl);
   }
 
 }

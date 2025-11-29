@@ -1,16 +1,16 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from '../../../services/login-service';
+import { LoginService } from '../../../../services/login-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-verify-mobile-number',
+  selector: 'app-forgot-password',
   imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './verify-mobile-number.html',
-  styleUrl: './verify-mobile-number.scss',
+  templateUrl: './forgot-password.html',
+  styleUrl: './forgot-password.scss',
 })
-export class VerifyMobileNumber {
+export class ForgotPassword {
   verifyForm: FormGroup;
 
   constructor(private fb: FormBuilder, private router: Router, private _loginService: LoginService) {
@@ -20,19 +20,18 @@ export class VerifyMobileNumber {
     })
   }
 
-  get mobileNumber(){
+  get mobileNumber() {
     return this.verifyForm.get('mobileNumber')
   }
 
-  get otp(){
+  get otp() {
     return this.verifyForm.get('otp')
   }
 
-  data:any;
-  otpMessage="";
-  isOtpSent = false;
-  sendOTP(){
-    if(this.mobileNumber?.invalid){
+  data: any;
+  otpMessage = "";
+  sendOTP() {
+    if (this.mobileNumber?.invalid) {
       this.verifyForm.markAllAsTouched();
       alert("Invalid mobile number");
       return;
@@ -43,12 +42,11 @@ export class VerifyMobileNumber {
       otp: this.verifyForm.get('otp')?.value,
     }
     // call sendOtp api
-    this._loginService.postSendOtp({ mobileNumber: this.data.mobileNumber }).subscribe((response:any) => {
+    this._loginService.postSendOtp({ mobileNumber: this.data.mobileNumber }).subscribe((response: any) => {
       console.log(response);
-      if(response){
+      if (response) {
         this.otpMessage = "Otp sent successfully";
-        this.isOtpSent=true;
-      }else{
+      } else {
         alert('Mobile number is not valid');
       }
     })
@@ -57,28 +55,28 @@ export class VerifyMobileNumber {
   }
 
   otpVerifyMessage = "";
-  verifyOTP(){
-    if(this.otp?.invalid){
+  verifyOTP() {
+    if (this.otp?.invalid) {
       this.verifyForm.markAllAsTouched();
-          alert("Invalid otp");
-          return;
+      alert("Invalid otp");
+      return;
     }
 
     this.data = {
       mobileNumber: this.verifyForm.get('mobileNumber')?.value,
       otp: this.verifyForm.get('otp')?.value,
     }
-    
+
     this._loginService.postVerifyOtp(this.data).subscribe((response) => {
-      if(response){
+      if (response) {
         this.router.navigate(['home'])
-      }else{
+      } else {
         alert('Otp verification failed');
       }
     },
-    (error) => {
-      this.otpVerifyMessage = error.error?.message;
-    }
-  )
+      (error) => {
+        this.otpVerifyMessage = error.error?.message;
+      }
+    )
   }
 }

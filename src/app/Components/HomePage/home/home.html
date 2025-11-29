@@ -1,1 +1,44 @@
-<p>This is Home page</p>
+<div>
+    <div class="main-content">
+        <header class="top-bar">
+            <h1>Home Page</h1>
+        </header>
+        <section class="header">
+            <h2>Welcome to the Dashboard</h2>
+            <p>This is your main control panel to navigate through the application.</p>
+        </section>
+        <section class="cards">
+
+            <div class="card">
+                <h3>Members</h3>
+                <p>Total: <strong>1234</strong></p>
+                <button [routerLink]="['/members']">View Members</button>
+            </div>
+
+            <div class="card">
+                <h3>Core Team</h3>
+                <p>Total: <strong>12</strong></p>
+                <button [routerLink]="['/coreTeam']">View Team</button>
+            </div>
+
+            <div class="card">
+                <h3>Special Thanks</h3>
+                <p>Total: <strong>45</strong></p>
+                <button [routerLink]="['/specialThanks']">View Thanks</button>
+            </div>
+
+        </section>
+        <section class="activity">
+            <h2>Recent Activity</h2>
+
+            <ul>
+                <li>John joined 2 hrs ago</li>
+                <li>Asha liked a post 5 hrs ago</li>
+                <li>Roadmap updated yesterday</li>
+            </ul>
+        </section>
+        <div class="bg_copyright">
+            <p>© Copyright 2018 | All Rights Reserved by host.com</p>
+        </div>
+    </div>
+</div>

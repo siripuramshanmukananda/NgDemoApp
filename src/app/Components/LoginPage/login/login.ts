@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../../services/login-service';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
@@ -30,7 +30,7 @@ export class Login {
 
   data: any;
   id: any = 1;
-
+  loginMessage = "";
   submit(){
     if(this.loginForm.invalid){
       this.loginForm.markAllAsTouched();
@@ -47,13 +47,17 @@ export class Login {
 
     //call api
     this._loginService.postLogin(this.data).subscribe((response:any) => {
-      console.log(response);
+      console.log(response.message);
       if(response){
-        this.router.navigate(['home']);
+        this.router.navigate(['/home']);
       }else{
         alert('User data is not valid');
       }
-    })
+    },
+    (error) => {
+      this.loginMessage = error.error?.message;
+    }
+  );
     
   }
 }

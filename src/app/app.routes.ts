@@ -2,9 +2,32 @@ import { Routes } from '@angular/router';
 import { Home } from './Components/HomePage/home/home';
 import { Login } from './Components/LoginPage/login/login';
 import { VerifyMobileNumber } from './Components/VerifyMobileNumberPage/verify-mobile-number/verify-mobile-number';
+import { ForgotPassword } from './Components/LoginPage/ForgotPasswordPage/forgot-password/forgot-password';
+import { Members } from './Components/MembersPage/members/members';
+import { CoreTeam } from './Components/CoreTeamPage/core-team/core-team';
+import { SpecialThanks } from './Components/SpecialThanksPage/special-thanks/special-thanks';
+import { Layout } from './Components/LayoutPage/layout/layout';
+import { SendOtp } from './Components/LoginPage/SendOtpPage/send-otp/send-otp';
+import { VerifyOtp } from './Components/LoginPage/VerifyOtpPage/verify-otp/verify-otp';
 
 export const routes: Routes = [
-    {path: 'verify', component: VerifyMobileNumber},
-    {path: '', component: Login},
-    {path: 'home', component: Home}
-];
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', component: Login },
+    { path: 'forgotPassword', component: ForgotPassword },
+    { path: 'verify', component: VerifyMobileNumber },
+    {path: 'sendOtp', component: SendOtp},
+    {path: 'verifyOtp', component:VerifyOtp},
+
+    {
+        path: '',              // Layout acts as parent for all dashboard pages
+        component: Layout,
+        children: [
+            { path: 'home', component: Home },
+            { path: 'members', component: Members },
+            { path: 'coreTeam', component: CoreTeam },
+            { path: 'specialThanks', component: SpecialThanks }
+        ]
+    },
+
+    { path: '**', redirectTo: 'login' }
+]

@@ -1,0 +1,26 @@
+<div>
+    <nav class="navbar">
+        <div class="left-section">
+            <div class="menu-icon" (click)="toggleSidebar()">&#9776;</div>
+            <div class="app-title">My Application</div>
+        </div>
+
+        <button class="logout-btn" (click)="onLogout()">Logout <i
+                class="fa-solid fa-arrow-right-from-bracket"></i></button>
+    </nav>
+
+    <div class="sidebar" [class.open]="isSidebarOpen">
+        <ul>
+            <li><a [routerLink]="['/home']">Home <i class="fa-solid fa-house"></i></a></li>
+            <li><a [routerLink]="['/members']">Members <i class="fa-solid fa-people-group"></i></a></li>
+            <li><a [routerLink]="['/coreTeam']">Core Team <i class="fa-solid fa-user-group"></i></a></li>
+            <li><a [routerLink]="['/specialThanks']">Special Thanks <i class="fa-solid fa-handshake"></i></a></li>
+        </ul>
+    </div>
+
+    <div class="content" [class.shift]="isSidebarOpen">
+        <router-outlet></router-outlet>
+    </div>
+
+    
+</div>
