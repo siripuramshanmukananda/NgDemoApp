@@ -5,13 +5,8 @@
             <form [formGroup]="loginForm">
                 <div class="label_input">
                     <label for="email">Email:</label>
-                    <input 
-                    type="email" 
-                    formControlName="email"
-                    id="email" 
-                    placeholder="Enter your email"
-                    required="required"
-                    class="input"/>
+                    <input type="email" formControlName="email" id="email" placeholder="Enter your email"
+                        required="required" class="input" />
                     <small *ngIf="email?.touched && email?.errors?.['required']">
                         Email is required.
                     </small>
@@ -22,13 +17,8 @@
 
                 <div class="label_input">
                     <label for="pwd">Password:</label>
-                    <input 
-                    type="password" 
-                    formControlName="password"
-                    id="pwd" 
-                    placeholder="Enter your password"
-                    required="required"
-                    class="input"/>
+                    <input type="password" formControlName="password" id="pwd" placeholder="Enter your password"
+                        required="required" class="input" />
                     <small *ngIf="password?.touched && password?.errors?.['required']">
                         Password is required.
                     </small>
@@ -45,7 +35,8 @@
                 <a routerLink="/verify">Forgot Password?</a>
             </div>
 
-            <button type="submit" class="btn" (click)="submit()">Login <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+            <button type="submit" class="btn" (click)="submit()">Login <i
+                    class="fa-solid fa-arrow-right-to-bracket"></i></button>
 
         </div>
     </div>

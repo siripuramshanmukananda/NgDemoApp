@@ -36,6 +36,7 @@
 
 .heading {
     text-align: center;
+    text-decoration: underline;
     margin-bottom: 20px;
     font-size: 28px;
     color: #2d3e50;
@@ -71,6 +72,7 @@
     transform: scale(1.02);
     box-shadow: 0 0 8px rgba(106, 133, 182, 0.4);
 }
+
 form div small{
     color: red;
 }

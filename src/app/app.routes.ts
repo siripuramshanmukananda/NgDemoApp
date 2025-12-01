@@ -7,19 +7,15 @@ import { Members } from './Components/MembersPage/members/members';
 import { CoreTeam } from './Components/CoreTeamPage/core-team/core-team';
 import { SpecialThanks } from './Components/SpecialThanksPage/special-thanks/special-thanks';
 import { Layout } from './Components/LayoutPage/layout/layout';
-import { SendOtp } from './Components/LoginPage/SendOtpPage/send-otp/send-otp';
-import { VerifyOtp } from './Components/LoginPage/VerifyOtpPage/verify-otp/verify-otp';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: Login },
     { path: 'forgotPassword', component: ForgotPassword },
     { path: 'verify', component: VerifyMobileNumber },
-    {path: 'sendOtp', component: SendOtp},
-    {path: 'verifyOtp', component:VerifyOtp},
 
     {
-        path: '',              // Layout acts as parent for all dashboard pages
+        path: '',             
         component: Layout,
         children: [
             { path: 'home', component: Home },

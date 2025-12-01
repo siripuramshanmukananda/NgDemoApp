@@ -4,12 +4,12 @@
             <h2>Verify your Mobile Number with OTP</h2>
 
             <div>
-                <h3>Verify with Mobile Number</h3>
+
                 <form [formGroup]="verifyForm">
                     <div class="label_input">
                         <label for="mobile">Mobile Number:</label>
                         <input type="text" formControlName="mobileNumber" id="mobile"
-                            placeholder="Enter your mobile number" class="input" required />
+                            placeholder="Enter your mobile number" class="input" required [readonly]="isOtpSent" />
 
                         <small *ngIf="mobileNumber?.touched && mobileNumber?.errors?.['required']">
                             Mobile Number is required.
@@ -23,20 +23,21 @@
                 <div *ngIf="otpMessage" class="message-popup">
                     {{ otpMessage }}
                 </div>
+                <div *ngIf="otpResendMessage" class="message-popup">
+                    {{ otpResendMessage }}
+                </div>
 
-                <button type="button" class="btn" (click)="sendOTP()">Send OTP</button>
+                <button type="button" class="btn" (click)="sendOTP()" [disabled]="isOtpSent">Send OTP</button>
             </div>
 
             <hr>
 
             <div *ngIf="isOtpSent">
-                <h3>Verify OTP</h3>
-
                 <form [formGroup]="verifyForm">
                     <div class="label_input">
                         <label for="Otp">OTP:</label>
-                        <input type="text" formControlName="otp" id="Otp"
-                            placeholder="Enter OTP" class="input" required />
+                        <input type="text" formControlName="otp" id="Otp" placeholder="Enter OTP" class="input"
+                            required />
 
                         <small *ngIf="otp?.touched && otp?.errors?.['required']">
                             OTP is required.
@@ -45,13 +46,21 @@
                             Enter a valid 4 digit OTP.
                         </small>
                     </div>
-
-                    <div *ngIf="otpVerifyMessage" class="message_error_popup">
-                        {{ otpVerifyMessage }}
-                    </div>
                 </form>
 
-                <button type="button" class="btn" (click)="verifyOTP()">Verify OTP</button>
+                <div *ngIf="otpVerifyMessage && countdown === 0" class="message_error_popup">
+                    {{ otpVerifyMessage }}
+                </div>
+                <div *ngIf="countdown > 0" class="countdown-popup">
+                    Resend OTP available in {{ countdown }} seconds
+                </div>
+
+                <div class="buttons">
+                    <button type="button" class="btn1" (click)="verifyOTP()">Verify OTP</button>
+
+                    <button type="button" class="btn2" (click)="resendOTP()" [disabled]="countdown > 0">Resend
+                        OTP</button>
+                </div>
             </div>
 
         </div>

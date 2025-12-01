@@ -24,19 +24,28 @@ export class LoginService {
     return this.http.post(this.loginApiUrl, data);
   }
 
-  private SendOtpApiUrl = environment.baseUrl + '/api/OTP/SendOTP';
+  private SendOtpApiUrl = environment.baseUrl + '/api/Login/SendOTP';
   postSendOtp(data:any): Observable<any>{
     return this.http.post(this.SendOtpApiUrl, data);
   }
 
-  private verifyOtpApiUrl =environment.baseUrl + '/api/OTP/VerifyOTP';
+  private verifyOtpApiUrl = environment.baseUrl + '/api/OTP/VerifyOTP';
   postVerifyOtp(data:any): Observable<any>{
     return this.http.post(this.verifyOtpApiUrl, data);
-  }  
+  } 
+  
+  private resendOtpApiUrl = environment.baseUrl + '/api/OTP/ResendOTP';
+  postResendOtp(data:any):Observable<any>{
+    return this.http.post(this.resendOtpApiUrl, data);
+  }
 
   private getMembersApiUrl = environment.baseUrl + '/api/Member/GetAllMembers';
   getMembers(): Observable<any>{
     return this.http.get<any>(this.getMembersApiUrl);
   }
 
+  private updatePasswordApiurl = environment.baseUrl + '/api/Login/UpdatePasswordByMobileNumber';
+  updatePassword(data:any): Observable<any>{
+    return this.http.post<any>(this.updatePasswordApiurl, data);
+  }
 }

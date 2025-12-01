@@ -20,19 +20,35 @@ export class VerifyMobileNumber {
     })
   }
 
-  get mobileNumber(){
+  get mobileNumber() {
     return this.verifyForm.get('mobileNumber')
   }
 
-  get otp(){
+  get otp() {
     return this.verifyForm.get('otp')
   }
 
-  data:any;
-  otpMessage="";
+  data: any;
+  otpMessage = "";
+  otpErrorMessage = "";
   isOtpSent = false;
-  sendOTP(){
-    if(this.mobileNumber?.invalid){
+  countdown: number = 0;
+  timerInterval: any;
+
+  startCountdown() {
+    this.countdown = 30;
+
+    this.timerInterval = setInterval(() => {
+      this.countdown--;
+
+      if (this.countdown === 0) {
+        clearInterval(this.timerInterval);
+      }
+    }, 1000);
+  }
+
+  sendOTP() {
+    if (this.mobileNumber?.invalid) {
       this.verifyForm.markAllAsTouched();
       alert("Invalid mobile number");
       return;
@@ -43,42 +59,89 @@ export class VerifyMobileNumber {
       otp: this.verifyForm.get('otp')?.value,
     }
     // call sendOtp api
-    this._loginService.postSendOtp({ mobileNumber: this.data.mobileNumber }).subscribe((response:any) => {
+    this._loginService.postSendOtp({ mobileNumber: this.data.mobileNumber }).subscribe((response: any) => {
       console.log(response);
-      if(response){
+      if (response) {
         this.otpMessage = "Otp sent successfully";
-        this.isOtpSent=true;
-      }else{
+        this.isOtpSent = true;
+        this.startCountdown()
+        setTimeout(() => {
+          this.otpMessage = "";
+        }, 30000);
+      } else {
         alert('Mobile number is not valid');
       }
-    })
-
-    //this.router.navigate(['home'])
+    },
+      (error) => {
+        alert(error.error?.message);
+      })
   }
 
   otpVerifyMessage = "";
-  verifyOTP(){
-    if(this.otp?.invalid){
+  verifyOTP() {
+    if (this.otp?.invalid) {
       this.verifyForm.markAllAsTouched();
-          alert("Invalid otp");
-          return;
+      alert("Invalid otp");
+      return;
     }
+
+    // clearInterval(this.timerInterval);
+    // this.countdown = 0;
 
     this.data = {
       mobileNumber: this.verifyForm.get('mobileNumber')?.value,
       otp: this.verifyForm.get('otp')?.value,
     }
-    
+
     this._loginService.postVerifyOtp(this.data).subscribe((response) => {
-      if(response){
-        this.router.navigate(['home'])
-      }else{
+      if (response) {
+        clearInterval(this.timerInterval);
+        this.countdown = 0;
+
+        this.router.navigate(['forgotPassword'], {
+          queryParams: { mobile: this.verifyForm.get('mobileNumber')?.value }
+        });
+      } else {
         alert('Otp verification failed');
       }
     },
-    (error) => {
-      this.otpVerifyMessage = error.error?.message;
+      (error) => {
+        if (this.countdown == 0) {
+          this.otpVerifyMessage = error.error?.message;
+        } else {
+          alert(error.error?.message);
+        }
+        //this.otpVerifyMessage = error.error?.message;
+      }
+    )
+  }
+
+  otpResendMessage = "";
+  resendOTP() {
+    if (this.countdown > 0) {
+      return;
     }
-  )
+    if (this.mobileNumber?.invalid) {
+      this.verifyForm.markAllAsTouched();
+      alert("Invalid mobile number");
+      return;
+    }
+
+    this.data = {
+      mobileNumber: this.verifyForm.get('mobileNumber')?.value
+    }
+
+    this._loginService.postResendOtp({ mobileNumber: this.data.mobileNumber }).subscribe((response) => {
+      console.log(response);
+      if (response) {
+        this.otpResendMessage = response.message
+      } else {
+        alert('Otp resend failed');
+      }
+    },
+      (error) => {
+        alert('Otp resend failed');
+      }
+    );
   }
 }
